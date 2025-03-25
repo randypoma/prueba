@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleta de Venta</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .boleta {
+            text-align: left;
+        }
+        h2 {
+            color: #ff6600;
+        }
+        h3 {
+            color: #007bff;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-calculate {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-calculate:hover {
+            background-color: #0056b3;
+        }
+        .btn-download {
+            background-color: #ff6600;
+            color: white;
+        }
+        .btn-download:hover {
+            background-color: #cc5200;
+        }
+    </style>
+<style type="text/css">
+.grande { font-size: 60px; }
+</style>
+<script>
+// Escribir aqui el código Javascript
+</script>
+</head>
+<body>
+    <div class="container">
+        <h2>Generador de Boleta de Venta</h2>
+        <div class="boleta" id="boleta">
+            <h3>Boleta de Venta</h3>
+            <p><strong>Cliente:</strong> <input type="text" id="cliente"></p>
+            <p><strong>Producto:</strong> <input type="text" id="producto"></p>
+            <p><strong>Cantidad:</strong> <input type="number" id="cantidad" value="1"></p>
+            <p><strong>Precio:</strong> <input type="number" id="precio" value="0"></p>
+            <p><strong>Total:</strong> <span id="total">910.00</span></p>
+        </div>
+        <button class="btn-calculate" onclick="calcularTotal()">Calcular Total</button>
+        <button class="btn-download" onclick="exportarPDF()">Descargar PDF</button>
+    </div>
+    
+    <script>
+        function calcularTotal() {
+            let cantidad = document.getElementById("cantidad").value;
+            let precio = document.getElementById("precio").value;
+            let total = cantidad * precio;
+            document.getElementById("total").textContent = total.toFixed(2);
+        }
+        
+        function exportarPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            let cliente = document.getElementById("cliente").value;
+            let producto = document.getElementById("producto").value;
+            let cantidad = document.getElementById("cantidad").value;
+            let precio = document.getElementById("precio").value;
+            let total = document.getElementById("total").textContent;
+            
+            doc.text("Boleta de Venta", 20, 20);
+            doc.text(`Cliente: ${cliente}`, 20, 30);
+            doc.text(`Producto: ${producto}`, 20, 40);
+            doc.text(`Cantidad: ${cantidad}`, 20, 50);
+            doc.text(`Precio: ${precio}`, 20, 60);
+            doc.text(`Total: ${total}`, 20, 70);
+            
+            doc.save("boleta_venta.pdf");
+        }
+    </script>
+
+
+
+      
+      
+ 
+
+</body></html>
